@@ -18,7 +18,7 @@ library(optimx) ## optimizer for models
 library(RColorBrewer)
 library(ggplot2) 
 
-all <- read.csv("data/data-start-for-docR.csv")
+all <- read.csv("data/data-start-for-docR.csv") ### request data from authors
 
 #### Create Table 1
 table1 <- create_table_1(data = all)
