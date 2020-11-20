@@ -20,25 +20,31 @@ library(ggplot2)
 
 all <- read.csv("data/data-start-for-docR.csv")
 
+#### Create Table 1
 table1 <- create_table_1(data = all)
 write.csv(as_tibble(table1), "output/table1.csv", row.names = FALSE)
 
-#### Datasets for baseline, complete, incomplete, and no moca
+#### Dataset for complete MoCA
 all.moca <- all %>% 
   dplyr::filter (!is.na(moca_score_w1) & !is.na(moca_score_mo3) & !is.na(moca_score_mo12))
 
+#### Create table 2 
 table2 <- create_table_2(data = all.moca)
 write.csv(as_tibble(table2), "output/table2.csv")
 
+#### Create figure e-1
 create_fig_S1(data = all.moca)
 extrafont::loadfonts()
-ggsave("output/Fig-S1-bubble_plot.pdf", 
+ggsave("output/Fig-e-1-bubble_plot.pdf", 
        width = 12, height = 7,
        units = 'in')
 
+#### Defining recovery pathways
 moca.with.trends <- add_moca_trends(data = all.moca)
 
-.t3_cols <- moca.with.trends %>% 
+
+#### Creating table e-2
+.tab_cols <- moca.with.trends %>% 
   select(trends, age_t0, CCMI_score_t0,
          systolic_bp_t0, diastolic_bp_t0, 
          systolic_bp_mo3, diastolic_bp_mo3, 
@@ -64,26 +70,32 @@ moca.with.trends <- add_moca_trends(data = all.moca)
          sis_total_mo3, sis_total_mo12) %>% 
   names
 
-table4 <- create_table_4(data = moca.with.trends,
-                         columns = .t3_cols)
-write.csv(as_tibble(table4), "output/table4.csv", 
+table_e2 <- create_table_e2(data = moca.with.trends,
+                         columns = .tab_cols)
+write.csv(as_tibble(table_e2), "output/table_e2.csv", 
           row.names =  FALSE)
 
-table5 <- create_table_5(data = moca.with.trends, 
-                         columns = .t3_cols)
-write.csv(as_tibble(table5, .name_repair = "minimal"), 
-          "output/table5.csv", 
+
+#### Creating table e-3
+table_e3 <- create_table_e3(data = moca.with.trends, 
+                         columns = .tab_cols)
+write.csv(as_tibble(table_e3, .name_repair = "minimal"), 
+          "output/table_e3.csv", 
           row.names = FALSE)
 
+#### Selecting variables for trajectory tree figure 2
 moca <- moca.with.trends %>% 
   select(id, moca_score_w1, moca_score_mo3,
          moca_score_mo12, trends)
 
+#### Creating figure 2
 create_fig_2(moca, all.moca)
 extrafont::loadfonts()
 ggsave("output/Fig-2-tree-cairo.pdf", width = 12, height = 7,
        units = 'in')
 
+
+#### Creating data columns for McNemars tests
 moca.with.impaired <- add_impaired(data = all.moca)
 
 sink('output/mcnemars.txt')
@@ -92,7 +104,7 @@ sink()
 
 categorized.moca <- categorize_moca_data(data = moca.with.impaired)
 
-### selecting all variables for analyses
+#### selecting all variables for regression analyses
 .all.vars <- 
   categorized.moca %>%
   select(
@@ -105,26 +117,41 @@ categorized.moca <- categorize_moca_data(data = moca.with.impaired)
     strength_score_w1) %>% 
   names
 
+
+#### Binary logistic regressions
 blm <- collate_binomial_regressions(data = categorized.moca,
                                     selected_variables = .all.vars)
 write.csv(blm, "output/table3-odds-ratio.csv", 
           row.names = FALSE)
 
+#### Quantile regressions
 qr <- collate_quantile_regressions(data = categorized.moca,
                                    selected_variables = .all.vars)
 write.csv(qr, "output/table3-slope-quantile-regression.csv", 
           row.names = FALSE)
 
+
+#### Prepping data for mixed-regressions
 moca.long <- prepare_moca_long(data = categorized.moca, 
                                selected_variables = .all.vars)
+
+#### LQMM analysis (unadjusted)
 lqmm_not_adj <- fit_lqmm_not_adj(moca.long)
 write.csv(lqmm_not_adj, "output/table3-slope-lqmm-not-adj.csv", 
           row.names = FALSE)
 
 moca.long.adj <- prepare_moca_long_adj(data = categorized.moca,
                                        selected_variables = .all.vars)
+
+#### LQMM analysis (adjusted by MoCA baseline score)
 lqmm_adj <- fit_lqmm_adj(moca.long.adj)
 write.csv(lqmm_adj, "output/table3-slope-lqmm-adjusted-moca-baseline.csv", row.names = FALSE)
+
+#### Prepping and fitting Gamma regression (unadjusted)
+gamma_not_adj <- fit_gamma_not_adj(moca.long.adj)
+write.csv(gamma_not_adj, "output/table3-slope-gamma-unadjusted.csv", row.names = FALSE)
+
+
 
 #### selecting only significant variables from the univariable models
 moca.long.model <- moca.long %>% 
@@ -134,6 +161,8 @@ moca.long.model <- moca.long %>%
          disab_prestroke, age_t0, 
          strength_score_w1, nihss_score_w1)
 
+
+#### Prepping data for mixed Gamma regression (adjusted)
 moca.long.adj.gamma <- prepare_moca_long_adj_gamma(data = moca.long.adj)
 gamma_adj <- fit_gamma_adj(data = moca.long.adj.gamma)
 write.csv(gamma_adj, "output/table3-gamma-adjusted-moca-baseline.csv", 
@@ -148,7 +177,7 @@ moca.long.adj.gamma$id <- as.character(factor(moca.long.adj.gamma$id,
 #### testing function (only on a limited number of patients and with one formula)
 # lapply(1:10, fit_model, formulas[3], moca.long.adj.gamma)
 
-#### comparison between gamma and lqmm models
+#### comparison between Gamma and LQMM models
 
 ### results adjusted by baseline score
 model.comparisons.2 <- lapply(formulas, cross_validate, 
