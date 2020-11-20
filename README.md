@@ -4,7 +4,7 @@ This repository contains code needed to reproduce the article:
 
 **Saa JP, Tse T, Baum C, Uribe D, Windecker S, Ma H, Davis S, Donnan G, Carey T**. "Trajectory and factors impacting cognitive recovery in the first year after stroke", (submitted to *Neurology*).
 
-Badge to pull data (non-functional; will be added some time in the future when data becomes public).
+Badge to pull data (non-functional; will be added some time in the future if data becomes public. For now, please request data from authors as indicated in the manuscript).
 
 [![DOI](https://zenodo.org/badge/11128/RemkoDuursma/baadanalysis.svg)](https://zenodo.org/badge/latestdoi/11128/RemkoDuursma/baadanalysis)
 
