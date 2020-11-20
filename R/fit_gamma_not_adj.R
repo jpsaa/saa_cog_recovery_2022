@@ -2,7 +2,6 @@ fit_gamma_not_adj <- function(data) {
 
 data$moca.score.gamma <- (data$moca.score - 42)*-1
 
-
 .stats=lapply(mixed.vars,
               function(var) {
                 mixed <- glmer(
