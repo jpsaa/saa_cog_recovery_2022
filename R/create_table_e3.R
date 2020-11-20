@@ -1,6 +1,6 @@
-#### Table 5 - overall improvers and improved declined
+#### Table e3 - first part: comparison overall improvers and improved declined
 
-create_table_5 <- function (data,
+create_table_e3 <- function (data,
                             columns) {
  
   sga <- data %>% 
@@ -19,7 +19,7 @@ create_table_5 <- function (data,
   medians <- names(sga.desc)[grep("median", names(sga.desc))]
   iqrs <- names(sga.desc)[grep("IQR", names(sga.desc))]
   
-  table5 <- matrix(nrow = nrow(sga.desc))
+  table_e3 <- matrix(nrow = nrow(sga.desc))
   
   for (i in seq_along(medians)) {
     
@@ -28,8 +28,8 @@ create_table_5 <- function (data,
     .med <- which(names(sga.desc) == medians[i])
     .iqr <- which(names(sga.desc) == iqrs[i])
     
-    table5 <- cbind(
-      table5, 
+    table_e3 <- cbind(
+      table_e3, 
       cbind(
         paste0(
           round(as.numeric(unlist(sga.desc[, .counts])), 2), ", ",
@@ -37,13 +37,13 @@ create_table_5 <- function (data,
           " (", 
           paste0(round(as.numeric(unlist(sga.desc[, .iqr])), 2), 
                  ")"))))
-    table5[grep("NA", table5[, i + 1]), i + 1] = ""
+    table_e3[grep("NA", table_e3[, i + 1]), i + 1] = ""
     
   }
   
-  table5 <- table5[, -1]
-  table5 <- t(table5)
-  colnames(table5) <- levels(factor(sga$trends))
+  table_e3 <- table_e3[, -1]
+  table_e3 <- t(table_e3)
+  colnames(table_e3) <- levels(factor(sga$trends))
   
   #### applying wilcoxon test accross all columns and groupping by trend (overall improver and improver declined)
   cols <- sga %>% 
@@ -75,11 +75,11 @@ create_table_5 <- function (data,
     
   }
   
-  table5 <- cbind(.tests[, "Variable"], table5, 
+  table_e3 <- cbind(.tests[, "Variable"], table_e3, 
                   .tests[, -which(colnames(.tests) == "Variable")])
   
   #### adding count variables
-  table5 <- rbind(
+  table_e3 <- rbind(
     c("n", get_stats(sga, gender_w1), "", "", ""), 
     t(c("males", get_stats(sga, gender_w1, "male"),
         fisher.stats(sga, gender_w1) %>% unname)),
@@ -89,11 +89,11 @@ create_table_5 <- function (data,
         fisher.stats(sga, marital_status_binary_w1) %>% unname)), 
     t(c("prestroke disab", get_stats(sga, disab_prestroke, "some disab"), 
         fisher.stats(sga, disab_prestroke) %>% unname)), 
-    table5)
+    table_e3)
   
-  table5[, 1] <- trimws(gsub("median|t0|.y|_", " ", table5[, 1]))
+  table_e3[, 1] <- trimws(gsub("median|t0|.y|_", " ", table_e3[, 1]))
   
-  ##### comparison overall improver vs overall decliner
+  ##### second part: comparison overall improver vs overall decliner
   sga2 <- data %>% 
     filter(trends == "1.overall improver" | 
              trends == "9.overall decliner") %>%
@@ -110,7 +110,7 @@ create_table_5 <- function (data,
   medians <- names(sga.desc)[grep("median", names(sga.desc))]
   iqrs <- names(sga.desc)[grep("IQR", names(sga.desc))]
   
-  .table5 <- matrix(nrow = nrow(sga.desc))
+  .table_e3 <- matrix(nrow = nrow(sga.desc))
   
   for (i in seq_along(medians)) {
     
@@ -118,8 +118,8 @@ create_table_5 <- function (data,
     .counts <- which(names(sga.desc) == counts[i])
     .med <- which(names(sga.desc) == medians[i])
     .iqr <- which(names(sga.desc) == iqrs[i])
-    .table5 <- cbind(
-      .table5, 
+    .table_e3 <- cbind(
+      .table_e3, 
       cbind(
         paste0(
           round(as.numeric(unlist(sga.desc[, .counts])), 2), ", ", 
@@ -127,13 +127,13 @@ create_table_5 <- function (data,
           " (", 
           paste0(round(as.numeric(unlist(sga.desc[, .iqr])), 2), 
                  ")"))))
-    .table5[grep("NA", .table5[, i+1]), i+1] <- ""
+    .table_e3[grep("NA", .table_3[, i+1]), i+1] <- ""
     
   }
   
-  .table5 <- .table5[, -1]
-  .table5 <- t(.table5)
-  colnames(.table5) <- levels(factor(sga2$trends))
+  .table_e3 <- .table_e3[, -1]
+  .table_e3 <- t(.table_e3)
+  colnames(.table_e3) <- levels(factor(sga2$trends))
   
   #### applying wilcoxon test accross all columns and groupping by trend (overall improver and improver declined)
   sigs <- list()
@@ -156,7 +156,7 @@ create_table_5 <- function (data,
     
   }
   
-  .tests <- cbind(.tests[, "Variable"], .table5, 
+  .tests <- cbind(.tests[, "Variable"], .table_e3, 
                   .tests[, -which(colnames(.tests) == "Variable")])
   
   #### adding count variables
@@ -169,14 +169,14 @@ create_table_5 <- function (data,
     t(c("marital status", get_stats(sga2, marital_status_binary_w1, "married"), 
         fisher.stats(sga2, marital_status_binary_w1) %>% unname)), 
     t(c("prestroke disab", get_stats(sga2, disab_prestroke, "some disab"), 
-        fisher.stats(sga2, disab_prestroke) %>%unname)), 
+        fisher.stats(sga2, disab_prestroke) %>% unname)), 
     .tests)
   
-  table5 <- cbind(table5, .tests[, 3:6])
-  colnames(table5)[which(colnames(table5) == "")] <- 
+  table_e3 <- cbind(table_e3, .tests[, 3:6])
+  colnames(table_e3)[which(colnames(table_e3) == "")] <- 
     c("variables", "1.overall improver", "3.improved-declined", "9.overall decliner")
   
-  table5 <- apply(table5, 2, as.character)
+  table_e3 <- apply(table_e3, 2, as.character)
   
 }
 
