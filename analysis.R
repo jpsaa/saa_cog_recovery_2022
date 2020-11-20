@@ -148,7 +148,7 @@ lqmm_adj <- fit_lqmm_adj(moca.long.adj)
 write.csv(lqmm_adj, "output/table3-slope-lqmm-adjusted-moca-baseline.csv", row.names = FALSE)
 
 #### Prepping and fitting Gamma regression (unadjusted)
-gamma_not_adj <- fit_gamma_not_adj(moca.long.adj)
+gamma_not_adj <- fit_gamma_not_adj(moca.long)
 write.csv(gamma_not_adj, "output/table3-slope-gamma-unadjusted.csv", row.names = FALSE)
 
 
