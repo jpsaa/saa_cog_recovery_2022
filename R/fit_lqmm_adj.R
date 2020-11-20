@@ -22,10 +22,12 @@ model_lqmm_adj <- function (var) {
     mixed <- lqmm(fixed = eval(formula), random = ~ 1, group = id,
                   data = moca.long.adj, tau = 0.5, nK = 11, type = "normal",
                   na.action = na.omit
-                  # control = lqmmControl(LP_max_iter = 1000,
-                  #                       LP_tol_ll = 1e-04)
-    )
-    
+                  control = list(
+                                 # method = "df", ### unadjusted analyses fit with the Nelder-Mead "df" variation
+                                 lqmmControl(LP_max_iter = 1000,
+                                        LP_tol_ll = 1e-04)
+                                )
+                  )
     mixed$call$fixed <- formula
     stats <- summary(mixed)$tTable
     pos <- grep(var, rownames(stats))
