@@ -152,7 +152,6 @@ gamma_not_adj <- fit_gamma_not_adj(moca.long.adj)
 write.csv(gamma_not_adj, "output/table3-slope-gamma-unadjusted.csv", row.names = FALSE)
 
 
-
 #### selecting only significant variables from the univariable models
 moca.long.model <- moca.long %>% 
   select(id, moca.score, time, educ_binary, 
