@@ -20,7 +20,7 @@ remotes::install_deps()
 
 You can access an interactive RStudio session with the required software pre-installed by opening a container hosted by [Binder](http://mybinder.org): 
 
-[![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jpsaa/saa_cog_recovery_2020/main?urlpath=rstudio)
+[![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jpsaa/saa_cog_recovery_2020/master?urlpath=rstudio)
 
 To ensure long-term [computational reproducibility](https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf) of this work, we have created a [Docker](http://dockerhub.com) image to enable others to reproduce these results on their local machines using identical software (and versions) we used to conduct the original analysis. Instructions for reproducing this work using the docker image are available at the bottom of this page. 
 
