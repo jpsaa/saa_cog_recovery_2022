@@ -1,5 +1,5 @@
 ### Table e-2
-create_table_e_2 <- function (data,
+create_table_e2 <- function (data,
                             columns) {
   
   te2 <- data %>% 
