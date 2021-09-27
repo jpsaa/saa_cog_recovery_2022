@@ -2,7 +2,7 @@
 
 This repository contains code needed to reproduce the article:
 
-**Saa JP, Tse T, Baum C, Ma H, Davis S, Donnan G, Carey T**. "Trajectory and factors impacting cognitive recovery in the first year after stroke", (submitted to *Stroke*).
+**Saa JP, Tse T, Baum C, Ma H, Davis S, Donnan G, Carey T**. "Trajectory and factors impacting cognitive recovery in the first year after stroke", (submitted to *Lancet Neurology*).
 
 Badge to pull data (non-functional; will be added some time in the future if data becomes public. For now, please request data from authors as indicated in the manuscript).
 
