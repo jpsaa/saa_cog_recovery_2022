@@ -42,19 +42,19 @@ If you have Docker installed, you can recreate the computing environment as foll
 From the directory you would like this repository saved in, clone the repository:
 
 ```
-git clone https://github.com/jpsaa/saa_cog_recovery_2020.git
+git clone https://github.com/jpsaa/saa_cog_recovery_2022.git
 ```
 
 Then fetch the container:
 
 ```
-docker pull jpsaa/saa_cog_recovery_2020
+docker pull jpsaa/saa_cog_recovery_2022
 ```
 
 Navigate to the downloaded repo, then launch the container using the following code (it will map your current working directory inside the docker container): 
 
 ```
-docker run --user root -v $(pwd):/home/rstudio/ -p 8787:8787 -e DISABLE_AUTH=true jpsaa/saa_cog_recovery_2020
+docker run --user root -v $(pwd):/home/rstudio/ -p 8787:8787 -e DISABLE_AUTH=true jpsaa/saa_cog_recovery_2022
 ```
 
 The code above initialises a docker container, which runs an RStudio session accessed by pointing your browser to [localhost:8787](http://localhost:8787). For more instructions on running docker, see detailed info from [rocker](https://hub.docker.com/r/rocker/rstudio).
@@ -64,8 +64,8 @@ The code above initialises a docker container, which runs an RStudio session acc
 For posterity, the docker image was built off [`rocker/verse:3.5.1` container](https://hub.docker.com/r/rocker/verse) via the following command, in a terminal contained within the downloaded repo:
 
 ```
-docker build -t jpsaa/saa_cog_recovery_2020 .
+docker build -t jpsaa/saa_cog_recovery_2022 .
 ```
 
-and was then pushed to [dockerhub](https://cloud.docker.com/u/smwindecker/repository/docker/jpsaa/saa_cog_recovery_2020). The image used by binder builds off this container, adding extra features needed by binder, as described in [rocker/binder](https://hub.docker.com/r/rocker/binder/dockerfile).
+and was then pushed to [dockerhub](https://cloud.docker.com/u/smwindecker/repository/docker/jpsaa/saa_cog_recovery_2022). The image used by binder builds off this container, adding extra features needed by binder, as described in [rocker/binder](https://hub.docker.com/r/rocker/binder/dockerfile).
 
