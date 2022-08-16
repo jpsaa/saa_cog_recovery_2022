@@ -4,13 +4,13 @@ This repository contains code needed to reproduce the article:
 
 **Saa JP, Tse T, Koh G, Yap P, Baum C, Uribe-Rivera D, Windecker S, Ma H, Davis S, Donnan G, Carey T**. "Trajectory and factors impacting cognitive recovery in the first year after stroke", (submitted to *Stroke*).
 
-Badge to pull data (non-functional; will be added some time in the future if data becomes public. For now, please request data from authors as indicated in the manuscript).
+Badge to pull data (non-functional; will be added some time in the future if data becomes public. For now, please request data from authors as indicated in article).
 
 [![DOI](https://zenodo.org/badge/11128/RemkoDuursma/baadanalysis.svg)](https://zenodo.org/badge/latestdoi/11128/RemkoDuursma/baadanalysis)
 
 ## Running the code
 
-All analyses were done in `R`. All code needed to reproduce the submitted manuscript is included in this repository. To reproduce the results in this study, run the code contained in the `analysis.R` file. Figures, tables, and other results will be output to respective directories. Supplementary materials can be found in the directory `ms`.
+All analyses were completed using `R`. All code needed to reproduce the results presented in the referenced work is included in this repository. To reproduce the results in this study, run the code contained in the `analysis.R` file. Figures, tables, and other results will be output to respective directories. Supplementary materials can be found in the directory `ms`.
 
 If you are reproducing these results on your own machine, first download the code and then install the required packages listed in the `DESCRIPTION` file. This can be achieved by opening the Rstudio project and running:
 
