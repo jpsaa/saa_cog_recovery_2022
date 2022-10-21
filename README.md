@@ -2,7 +2,7 @@
 
 This repository contains code needed to reproduce the article:
 
-**Saa JP, Tse T, Koh G, Yap P, Baum C, Uribe-Rivera D, Windecker S, Ma H, Davis S, Donnan G, Carey T**. "Trajectory and factors impacting cognitive recovery in the first year after stroke", (submitted to *Stroke*).
+**Saa JP, Tse T, Koh G, Yap P, Baum C, Uribe-Rivera D, Windecker S, Ma H, Davis S, Donnan G, Carey T**. "Trajectory and factors impacting cognitive recovery in the first year after stroke", (submitted to *International Journal of Stroke*).
 
 Badge to pull data (non-functional; will be added some time in the future if data becomes public. For now, please request data from authors as indicated in article).
 
